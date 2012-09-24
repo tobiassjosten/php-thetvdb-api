@@ -18,18 +18,6 @@ use FPN\TheTVDB\Model\Episode;
 use FPN\TheTVDB\Model\Banner;
 use FPN\TheTVDB\HttpClient\HttpClientInterface;
 
-class MockHttpClient implements HttpClientInterface
-{
-    public $requestUrl;
-    public $requestBody;
-
-    public function get($url)
-    {
-        $this->requestUrl = $url;
-        return $this->requestBody;
-    }
-}
-
 class ApiTest extends \PHPUnit_Framework_TestCase
 {
     private $httpClient;

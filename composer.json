@@ -20,6 +20,7 @@
     },
     "autoload": {
         "psr-0": {
+            "FPN\\TheTVDB\\Test": "tests",
             "FPN\\TheTVDB": "src"
         }
     }

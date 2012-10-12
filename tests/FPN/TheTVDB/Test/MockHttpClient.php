@@ -24,4 +24,15 @@ class MockHttpClient implements HttpClientInterface
         $this->requestUrl = $url;
         return $this->requestBody;
     }
+
+    public function mockRequestBody($method, $number = 1)
+    {
+        $file = __DIR__."/Fixtures/{$method}_$number.xml";
+
+        if (!is_readable($file)) {
+            throw new \RuntimeException("Could not find file: $file");
+        }
+
+        $this->requestBody = file_get_contents($file);
+    }
 }

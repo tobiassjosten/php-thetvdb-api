@@ -44,7 +44,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 
     public function testSearchTvShow()
     {
-        $this->httpClient->requestBody = file_get_contents(__DIR__.'/Fixtures/searchTvShow_1.xml');
+        $this->httpClient->mockRequestBody('searchTvShow');
 
         $tvshow1 = new TvShow();
         $tvshow1->fromArray(array(
@@ -62,7 +62,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.test.com/api/GetSeries.php?seriesname=Smallville', $this->httpClient->requestUrl);
 
 
-        $this->httpClient->requestBody = file_get_contents(__DIR__.'/Fixtures/searchTvShow_2.xml');
+        $this->httpClient->mockRequestBody('searchTvShow', 2);
         $tvshow2 = new TvShow();
         $tvshow2->fromArray(array(
             'id'            => 71394,
@@ -91,7 +91,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 
     public function testGetTvShow()
     {
-        $this->httpClient->requestBody = file_get_contents(__DIR__.'/Fixtures/getTvShow_1.xml');
+        $this->httpClient->mockRequestBody('getTvShow');
 
         $tvshow = new TvShow();
         $tvshow->fromArray(array(
@@ -117,7 +117,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 
     public function testGetEpisode()
     {
-        $this->httpClient->requestBody = file_get_contents(__DIR__.'/Fixtures/getEpisode_1.xml');
+        $this->httpClient->mockRequestBody('getEpisode');
 
         $episode = new Episode();
         $episode->fromArray(array(
@@ -138,7 +138,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 
     public function testGetTvShowAndEpisodes()
     {
-        $this->httpClient->requestBody = file_get_contents(__DIR__.'/Fixtures/getTvShowAndEpisodes_1.xml');
+        $this->httpClient->mockRequestBody('getTvShowAndEpisodes');
 
         $tvshow = new TvShow();
         $tvshow->fromArray(array(
@@ -179,7 +179,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.test.com/api/123/series/72218/all/en.xml', $this->httpClient->requestUrl);
 
 
-        $this->httpClient->requestBody = file_get_contents(__DIR__.'/Fixtures/getTvShowAndEpisodes_2.xml');
+        $this->httpClient->mockRequestBody('getTvShowAndEpisodes', 2);
         $data = $this->api->getTvShowAndEpisodes(72218);
         $this->assertInstanceOf('FPN\TheTVDB\Model\TvShow', $data['tvshow']);
         $this->assertEquals(5, sizeof($data['episodes']));
@@ -187,7 +187,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 
     public function testGetBanners()
     {
-        $this->httpClient->requestBody = file_get_contents(__DIR__.'/Fixtures/getBanners_1.xml');
+        $this->httpClient->mockRequestBody('getBanners');
 
         $banner_1 = new Banner();
         $banner_1->fromArray(array(

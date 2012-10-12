@@ -63,11 +63,13 @@ class Api
             $url .= '&language='.urlencode($language);
         }
 
-        $xml = simplexml_load_string($this->httpClient->get($url));
-
         $data = array();
-        foreach ($xml as $xmlSerie) {
-            $data[] = $this->xmlToTvShow($xmlSerie);
+        $xml = @simplexml_load_string($this->httpClient->get($url));
+
+        if ($xml) {
+            foreach ($xml as $xmlSerie) {
+                $data[] = $this->xmlToTvShow($xmlSerie);
+            }
         }
 
         return $data;
@@ -76,7 +78,7 @@ class Api
     public function getTvShow($tvshowId, $language='en')
     {
         $url = $this->baseKeyUrl.'series/'.$tvshowId.'/'.$language.'.xml';
-        $xml = simplexml_load_string($this->httpClient->get($url));
+        $xml = @simplexml_load_string($this->httpClient->get($url));
 
         return isset($xml->Series) ? $this->xmlToTvShow($xml->Series) : null;
     }
@@ -84,7 +86,7 @@ class Api
     public function getEpisode($episodeId, $language='en')
     {
         $url = $this->baseKeyUrl.'episodes/'.$episodeId.'/'.$language.'.xml';
-        $xml = simplexml_load_string($this->httpClient->get($url));
+        $xml = @simplexml_load_string($this->httpClient->get($url));
 
         return isset($xml->Episode) ? $this->xmlToEpisode($xml->Episode) : null;
     }
@@ -92,7 +94,7 @@ class Api
     public function getTvShowAndEpisodes($tvshowId, $language='en')
     {
         $url = $this->baseKeyUrl.'series/'.$tvshowId.'/all/'.$language.'.xml';
-        $xml = simplexml_load_string($this->httpClient->get($url));
+        $xml = @simplexml_load_string($this->httpClient->get($url));
 
         if (isset($xml->Series)) {
             $tvshow = $this->xmlToTvShow($xml->Series);
@@ -111,11 +113,14 @@ class Api
     public function getBanners($showId)
     {
         $url = $this->baseKeyUrl.'series/'.$showId.'/banners.xml';
-        $xml = simplexml_load_string($this->httpClient->get($url));
+        $xml = @simplexml_load_string($this->httpClient->get($url));
 
         $data = array();
-        foreach ($xml as $xmlBanner) {
-            $data[] = $this->xmlToBanner($xmlBanner);
+
+        if ($xml) {
+            foreach ($xml as $xmlBanner) {
+                $data[] = $this->xmlToBanner($xmlBanner);
+            }
         }
 
         return $data;

@@ -61,7 +61,6 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array($tvshow1), $this->api->searchTvShow('Smallville'));
         $this->assertEquals('http://www.test.com/api/GetSeries.php?seriesname=Smallville', $this->httpClient->requestUrl);
 
-
         $this->httpClient->mockRequestBody('searchTvShow', 2);
         $tvshow2 = new TvShow();
         $tvshow2->fromArray(array(
@@ -87,6 +86,12 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         ));
         $this->assertEquals(array($tvshow2,$tvshow3), $this->api->searchTvShow('The Cape'));
         $this->assertEquals('http://www.test.com/api/GetSeries.php?seriesname='.urlencode('The Cape'), $this->httpClient->requestUrl);
+    }
+
+    public function testSearchTvShowFail()
+    {
+        $this->httpClient->mockRequestBody('notFound');
+        $this->assertEquals(array(), $this->api->searchTvShow('Smallville'));
     }
 
     public function testGetTvShow()
@@ -115,6 +120,12 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.test.com/api/123/series/72218/en.xml', $this->httpClient->requestUrl);
     }
 
+    public function testGetTvShowFail()
+    {
+        $this->httpClient->mockRequestBody('notFound');
+        $this->assertNull($this->api->getTvShow(72218));
+    }
+
     public function testGetEpisode()
     {
         $this->httpClient->mockRequestBody('getEpisode');
@@ -134,6 +145,12 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($episode, $this->api->getEpisode(77817));
         $this->assertEquals('http://www.test.com/api/123/episodes/77817/en.xml', $this->httpClient->requestUrl);
+    }
+
+    public function testGetEpisodeFail()
+    {
+        $this->httpClient->mockRequestBody('notFound');
+        $this->assertNull($this->api->getEpisode(77817));
     }
 
     public function testGetTvShowAndEpisodes()
@@ -185,6 +202,12 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, sizeof($data['episodes']));
     }
 
+    public function testGetTvShowAndEpisodesFail()
+    {
+        $this->httpClient->mockRequestBody('notFound');
+        $this->assertNull($this->api->getTvShowAndEpisodes(72218));
+    }
+
     public function testGetBanners()
     {
         $this->httpClient->mockRequestBody('getBanners');
@@ -226,5 +249,11 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array($banner_1,$banner_2,$banner_3,$banner_4), $this->api->getBanners(71394));
         $this->assertEquals('http://www.test.com/api/123/series/71394/banners.xml', $this->httpClient->requestUrl);
+    }
+
+    public function testGetBannersFail()
+    {
+        $this->httpClient->mockRequestBody('notFound');
+        $this->assertEquals(array(), $this->api->getBanners(71394));
     }
 }

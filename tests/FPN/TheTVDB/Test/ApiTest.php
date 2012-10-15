@@ -208,6 +208,59 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->api->getTvShowAndEpisodes(72218));
     }
 
+    public function testGetUpdates()
+    {
+        $this->httpClient->mockRequestBody('getUpdates');
+
+        // We can't access constants from objects when they are members of
+        // another object.
+        // @see https://gist.github.com/3892865
+        $api = $this->api;
+
+        $tvshow = new TvShow();
+        $tvshow->fromArray(array(
+            'id'         => 70355,
+            'theTvDbId'  => 70355,
+            'name'       => '',
+            'overview'   => '',
+            'firstAired' => new \DateTime(),
+        ));
+
+        $episode = new Episode();
+        $episode->fromArray(array(
+            'id'            => 396057,
+            'seasonId'      => 0,
+            'tvshowId'      => 0,
+            'episodeNumber' => 0,
+            'seasonNumber'  => 0,
+            'name'          => '',
+            'firstAired'    => new \DateTime(),
+            'overview'      => '',
+            'language'      => '',
+        ));
+
+        $banner = new Banner();
+        $banner->fromArray(array(
+            'id'            => 0,
+            'language'      => '',
+            'bannerUrl'     => $this->api->getMirrorUrl().'banners/',
+            'bannerType'    => '',
+            'bannerSize'    => null,
+            'thumbnailUrl'  => null,
+        ));
+
+        $data = array(
+            'tvshows'  => array($tvshow),
+            'episodes' => array($episode),
+            'banners'  => array($banner),
+        );
+
+        $this->assertEquals($data, $api->getUpdates($api::UPDATES_DAY));
+        $this->assertEquals($data, $api->getUpdates($api::UPDATES_WEEK));
+        $this->assertEquals($data, $api->getUpdates($api::UPDATES_MONTH));
+        $this->assertEquals($data, $api->getUpdates($api::UPDATES_ALL));
+    }
+
     public function testGetBanners()
     {
         $this->httpClient->mockRequestBody('getBanners');

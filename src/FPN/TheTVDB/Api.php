@@ -27,6 +27,11 @@ class Api
     protected $baseKeyUrl;
     protected $baseImagesUrl;
 
+    const UPDATES_DAY = 'day';
+    const UPDATES_WEEK = 'week';
+    const UPDATES_MONTH = 'month';
+    const UPDATES_ALL = 'all';
+
     public function __construct(HttpClientInterface $httpClient, $apiKey, $mirrorUrl=null)
     {
         $this->httpClient = $httpClient;
@@ -108,6 +113,40 @@ class Api
 
             return array('tvshow' => $tvshow, 'episodes' => $episodes);
         }
+    }
+
+    public function getUpdates($timeframe = self::UPDATES_DAY)
+    {
+        switch ($timeframe) {
+            case self::UPDATES_DAY:
+            case self::UPDATES_WEEK:
+            case self::UPDATES_MONTH:
+            case self::UPDATES_ALL:
+                break;
+            default:
+                throw new \Exception($span.' is not a valid time span');
+        }
+
+        $url = $this->baseKeyUrl.'updates/updates_'.$timeframe.'.xml';
+        $xml = @simplexml_load_string($this->httpClient->get($url));
+
+        $data = array(
+            'tvshows' => array(),
+            'episodes' => array(),
+            'banners' => array(),
+        );
+
+        foreach ($xml->Series as $series) {
+            $data['tvshows'][] = $this->xmlToTvShow($series);
+        }
+        foreach ($xml->Episode as $episode) {
+            $data['episodes'][] = $this->xmlToEpisode($episode);
+        }
+        foreach ($xml->Banner as $banner) {
+            $data['banners'][] = $this->xmlToBanner($banner);
+        }
+
+        return $data;
     }
 
     public function getBanners($showId)

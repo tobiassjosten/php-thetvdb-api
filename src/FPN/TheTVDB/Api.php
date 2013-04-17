@@ -172,9 +172,12 @@ class Api
             'id'            => (int)$element->id,
             'name'          => (string)$element->SeriesName,
             'overview'      => (string)$element->Overview,
-            'firstAired'    => new \DateTime((string)$element->FirstAired),
             'network'       => isset($element->Network) ? (string)$element->Network : null,
             'language'      => isset($element->language) ? (string)$element->language : (isset($element->Language) ? (string)$element->Language : null),
+
+            'firstAired'    => (string)$element->FirstAired
+                ? new \DateTime($element->FirstAired)
+                : null,
 
             'theTvDbId'     => isset($element->seriesid) ? (int)$element->seriesid : (int)$element->id,
             'imdbId'        => (string)$element->IMDB_ID,
@@ -201,9 +204,12 @@ class Api
             'seasonNumber'  => (int)$element->SeasonNumber,
 
             'name'          => (string)$element->EpisodeName,
-            'firstAired'    => new \DateTime($element->FirstAired),
             'overview'      => (string)$element->Overview,
             'language'      => (string)$element->Language,
+
+            'firstAired'    => (string)$element->FirstAired
+                ? new \DateTime($element->FirstAired)
+                : null,
         ));
 
         return $episode;

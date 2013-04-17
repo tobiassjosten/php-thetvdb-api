@@ -147,6 +147,26 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://www.test.com/api/123/episodes/77817/en.xml', $this->httpClient->requestUrl);
     }
 
+    public function testGetUnairedEpisode()
+    {
+        $this->httpClient->mockRequestBody('getEpisode', 2);
+
+        $episode = new Episode();
+        $episode->fromArray(array(
+            'id'            => 77817,
+            'tvshowId'      => 72218,
+            'seasonId'      => 3707,
+            'episodeNumber' => 1,
+            'seasonNumber'  => 1,
+            'name'          => 'Pilot',
+            'firstAired'    => null,
+            'overview'      => 'The first episode tells the story of the meteor shower that hit Smallville and changed life in the Kansas town forever.',
+            'language'      => 'en',
+        ));
+
+        $this->assertEquals($episode, $this->api->getEpisode(77817));
+    }
+
     public function testGetEpisodeFail()
     {
         $this->httpClient->mockRequestBody('notFound');
@@ -195,11 +215,52 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data, $this->api->getTvShowAndEpisodes(72218));
         $this->assertEquals('http://www.test.com/api/123/series/72218/all/en.xml', $this->httpClient->requestUrl);
 
-
         $this->httpClient->mockRequestBody('getTvShowAndEpisodes', 2);
         $data = $this->api->getTvShowAndEpisodes(72218);
         $this->assertInstanceOf('FPN\TheTVDB\Model\TvShow', $data['tvshow']);
         $this->assertEquals(5, sizeof($data['episodes']));
+    }
+
+    public function testGetTvShowAndUnairedEpisodes()
+    {
+        $this->httpClient->mockRequestBody('getTvShowAndEpisodes', 3);
+
+        $tvshow = new TvShow();
+        $tvshow->fromArray(array(
+            'id'            => 72218,
+            'name'          => 'Smallville',
+            'firstAired'    => null,
+            'overview'      => 'Smallville revolves around Clark Kent...',
+            'network'       => 'The CW',
+            'language'      => 'en',
+
+            'bannerUrl'     => $this->api->getMirrorUrl().'banners/graphical/72218-g22.jpg',
+            'fanartUrl'     => $this->api->getMirrorUrl().'banners/fanart/original/72218-82.jpg',
+            'posterUrl'     => $this->api->getMirrorUrl().'banners/posters/72218-16.jpg',
+
+            'theTvDbId'     => 72218,
+            'imdbId'        => 'tt0279600',
+            'zap2itId'      => 'SH462144',
+        ));
+
+        $episode = new Episode();
+        $episode->fromArray(array(
+            'id'            => 77817,
+            'tvshowId'      => 72218,
+            'seasonId'      => 3707,
+            'episodeNumber' => 1,
+            'seasonNumber'  => 1,
+            'name'          => 'Pilot',
+            'firstAired'    => null,
+            'overview'      => 'The first episode tells the story of the meteor shower that hit Smallville and changed life in the Kansas town forever...',
+            'language'      => 'en',
+        ));
+
+        $data = array(
+            'tvshow'    => $tvshow,
+            'episodes'  => array($episode),
+        );
+        $this->assertEquals($data, $this->api->getTvShowAndEpisodes(72218));
     }
 
     public function testGetTvShowAndEpisodesFail()
@@ -223,7 +284,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             'theTvDbId'  => 70355,
             'name'       => '',
             'overview'   => '',
-            'firstAired' => new \DateTime(),
+            'firstAired' => null,
         ));
 
         $episode = new Episode();
@@ -234,7 +295,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             'episodeNumber' => 0,
             'seasonNumber'  => 0,
             'name'          => '',
-            'firstAired'    => new \DateTime(),
+            'firstAired'    => null,
             'overview'      => '',
             'language'      => '',
         ));

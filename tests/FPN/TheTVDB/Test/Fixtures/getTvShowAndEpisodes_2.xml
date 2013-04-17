@@ -44,7 +44,7 @@
         <EpImgFlag></EpImgFlag>
         <EpisodeName>Unaired Pilot</EpisodeName>
         <EpisodeNumber>1</EpisodeNumber>
-        <FirstAired></FirstAired>
+        <FirstAired/>
         <GuestStars></GuestStars>
 
         <IMDB_ID></IMDB_ID>
@@ -80,7 +80,7 @@
         <EpisodeName>Producing Smallville</EpisodeName>
         <EpisodeNumber>2</EpisodeNumber>
 
-        <FirstAired></FirstAired>
+        <FirstAired/>
         <GuestStars></GuestStars>
         <IMDB_ID></IMDB_ID>
         <Language>en</Language>

@@ -174,6 +174,7 @@ class Api
             'overview'      => (string)$element->Overview,
             'network'       => isset($element->Network) ? (string)$element->Network : null,
             'language'      => isset($element->language) ? (string)$element->language : (isset($element->Language) ? (string)$element->Language : null),
+            'genres'        => explode('|', trim($element->Genre, '|')),
 
             'firstAired'    => (string)$element->FirstAired
                 ? new \DateTime($element->FirstAired)

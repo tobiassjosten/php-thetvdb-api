@@ -54,6 +54,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             'overview'      => 'Smallville is an american tv serie.',
             'firstAired'    => new \DateTime('2001-10-16'),
             'language'      => 'en',
+            'genres'        => array('Drama', 'Science-Fiction'),
             'theTvDbId'     => 72218,
             'imdbId'        => 'tt0279600',
             'zap2itId'      => 'SH462144',
@@ -66,6 +67,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $tvshow2->fromArray(array(
             'id'            => 71394,
             'language'      => 'en',
+            'genres'        => array('Drama', 'Science-Fiction'),
             'name'          => 'The Cape',
             'bannerUrl'     => $this->api->getMirrorUrl().'banners/graphical/71394-g.jpg',
             'firstAired'    => new \DateTime('1996-09-01'),
@@ -80,6 +82,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             'overview'      => 'The Cape follows an innocent cop who has been framed for a crime he did not commit...',
             'firstAired'    => new \DateTime('2011-01-09'),
             'language'      => 'en',
+            'genres'        => array('Drama', 'Science-Fiction'),
             'theTvDbId'     => 160671,
             'imdbId'        => 'tt1593823',
             'zap2itId'      => 'SH01279165',
@@ -106,6 +109,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             'overview'      => 'Smallville revolves around Clark Kent...',
             'network'       => 'The CW',
             'language'      => 'en',
+            'genres'        => array('Drama', 'Science-Fiction'),
 
             'bannerUrl'     => $this->api->getMirrorUrl().'banners/graphical/72218-g22.jpg',
             'fanartUrl'     => $this->api->getMirrorUrl().'banners/fanart/original/72218-82.jpg',
@@ -185,6 +189,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             'overview'      => 'Smallville revolves around Clark Kent...',
             'network'       => 'The CW',
             'language'      => 'en',
+            'genres'        => array('Drama', 'Science-Fiction'),
 
             'bannerUrl'     => $this->api->getMirrorUrl().'banners/graphical/72218-g22.jpg',
             'fanartUrl'     => $this->api->getMirrorUrl().'banners/fanart/original/72218-82.jpg',
@@ -233,6 +238,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             'overview'      => 'Smallville revolves around Clark Kent...',
             'network'       => 'The CW',
             'language'      => 'en',
+            'genres'        => array('Drama', 'Science-Fiction'),
 
             'bannerUrl'     => $this->api->getMirrorUrl().'banners/graphical/72218-g22.jpg',
             'fanartUrl'     => $this->api->getMirrorUrl().'banners/fanart/original/72218-82.jpg',
@@ -282,6 +288,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $tvshow->fromArray(array(
             'id'         => 70355,
             'theTvDbId'  => 70355,
+            'genres'     => array('Drama', 'Science-Fiction'),
             'name'       => '',
             'overview'   => '',
             'firstAired' => null,

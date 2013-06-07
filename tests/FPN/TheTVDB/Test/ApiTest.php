@@ -288,7 +288,6 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $tvshow->fromArray(array(
             'id'         => 70355,
             'theTvDbId'  => 70355,
-            'genres'     => array('Drama', 'Science-Fiction'),
             'name'       => '',
             'overview'   => '',
             'firstAired' => null,

@@ -20,6 +20,7 @@ class TvShow extends AbstractModel
     protected $firstAired;
     protected $network;
     protected $language;
+    protected $genres = array();
 
     protected $theTvDbId;
     protected $imdbId;
@@ -58,6 +59,11 @@ class TvShow extends AbstractModel
     public function getLanguage()
     {
         return $this->language;
+    }
+
+    public function getGenres()
+    {
+        return $this->genres;
     }
 
     public function getTheTvDbId()

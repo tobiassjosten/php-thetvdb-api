@@ -106,6 +106,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             'overview'      => 'Smallville revolves around Clark Kent...',
             'network'       => 'The CW',
             'language'      => 'en',
+            'genres'        => array('Drama', 'Science-Fiction'),
 
             'bannerUrl'     => $this->api->getMirrorUrl().'banners/graphical/72218-g22.jpg',
             'fanartUrl'     => $this->api->getMirrorUrl().'banners/fanart/original/72218-82.jpg',
@@ -185,6 +186,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             'overview'      => 'Smallville revolves around Clark Kent...',
             'network'       => 'The CW',
             'language'      => 'en',
+            'genres'        => array('Drama', 'Science-Fiction'),
 
             'bannerUrl'     => $this->api->getMirrorUrl().'banners/graphical/72218-g22.jpg',
             'fanartUrl'     => $this->api->getMirrorUrl().'banners/fanart/original/72218-82.jpg',
@@ -233,6 +235,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             'overview'      => 'Smallville revolves around Clark Kent...',
             'network'       => 'The CW',
             'language'      => 'en',
+            'genres'        => array('Drama', 'Science-Fiction'),
 
             'bannerUrl'     => $this->api->getMirrorUrl().'banners/graphical/72218-g22.jpg',
             'fanartUrl'     => $this->api->getMirrorUrl().'banners/fanart/original/72218-82.jpg',
